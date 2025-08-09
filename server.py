@@ -8,6 +8,7 @@ print('socket created')
 port = 54322
 
 ip = str(input('ip -> '))
+clientMSG = ''
 
 try:
     s.connect((ip, port))
@@ -53,19 +54,22 @@ except:
 
         c.send(message.encode())
 
-        clientMSG = c.recv(1024).decode()
+
+
+        if message == 'quit' or message == 'exit': # check if user wants to end the chat
+            print('you ended the chat')
+            c.close()
+            sys.exit()
+
 
         if clientMSG == 'quit' or clientMSG == 'exit':
             print('they ended the chat')
             c.close()
             sys.exit()
 
-        print(clientMSG)
+        clientMSG = c.recv(1024).decode()
 
-        if message == 'quit' or message == 'exit': # check if user wants to end the chat
-            print('you ended the chat')
-            c.close()
-            sys.exit()
+        print(clientMSG)
 
         #c.close()
 
