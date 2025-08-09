@@ -2,9 +2,13 @@ import keyboard
 import time
 from translate import MorseCodeTranslator
 from imageSearch import ImageSearch
+from openImage import OpenImage
     
 translator = MorseCodeTranslator()
 search = ImageSearch()
+openImage = OpenImage()
+
+# OpenImage.openImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRngGF6K9KVSyUaa3wRET32_OHo47WJgmcug17bw5Z8CeW-7p7MhBHcCigfRAw&s')
 
 input = ''
 
@@ -23,10 +27,7 @@ def addSpace():
         gap = 0
 
 def imageSearch(p_text):
-    print("FUCKING TEXT" + p_text)
-    print(search.getImageUrl(p_text))
-
-print("IM GONNA FUCKING goon")
+    return search.getImageUrl(p_text)
 
 while True:
     addSpace()
@@ -48,7 +49,11 @@ while True:
         print(input)
 
     if keyboard.is_pressed('enter'):
-        imageSearch(translator.translate_morse(input))
+        translated = translator.translate_morse(input)
+        print(translated)
+        image_url = imageSearch(translated)
+        print(image_url)
+        OpenImage.openImage(image_url)
         input = ''
 
     if keyboard.is_pressed('backspace'):
