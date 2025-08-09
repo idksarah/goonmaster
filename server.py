@@ -2,6 +2,7 @@ import socket
 import sys
 
 s = socket.socket()
+s.settimeout(5)
 print('socket created')
 
 port = 54322
@@ -12,17 +13,16 @@ ip = str(input('ip -> '))
 isServer = False
 
 try:
-    s.settimeout(5)
     s.connect((ip, port))
     print('you are a client')
 
 except:
     isServer = True
-    
-
         #c.close()
 
         #break
+
+s.settimeout(None)
 
 if isServer == True:
     s.close()
