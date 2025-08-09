@@ -52,6 +52,9 @@ while collecting_ip:
     button = input('.')
     if button:
         ip_address = ip_address + '.'
+    button = input('')
+    if button:
+        ip_address = ip_address + '0'
     button = input('o')
     if button:
         ip_address = ip_address + '1'
