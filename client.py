@@ -19,7 +19,7 @@ while True:
     
     if serverMSG == 'quit' or serverMSG == 'exit':
         print('They ended the chat.')
-        s.close
+        s.close()
         sys.exit()
 
     print (serverMSG)
