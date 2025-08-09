@@ -4,7 +4,7 @@ from interpreter import Interpreter
 from openImage import OpenImage
 
 interpreter = Interpreter()
-openImg= OpenImage()
+openImage= OpenImage()
 
 s = socket.socket()
 s.settimeout(5)
