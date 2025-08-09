@@ -1,4 +1,6 @@
 import socket
+import keyboard
+import sys
 
 s = socket.socket()
 print('socket created')
@@ -20,7 +22,18 @@ while True:
 
     c.send(message.encode())
 
-    print(c.recv(1024).decode())
+    clientMSG = c.recv(1024).decode()
+
+    if clientMSG == 'quit' or clientMSG == 'exit':
+        print('chat ended')
+        c.close()
+        sys.exit()
+
+    print(clientMSG)
+
+    if keyboard.is_pressed('x'): # check if user wants to end the chat
+        c.close()
+        sys.exit()
 
     #c.close()
 
