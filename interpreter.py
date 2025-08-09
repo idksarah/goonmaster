@@ -7,6 +7,7 @@ from openImage import OpenImage
 class Interpreter:
     @staticmethod
     def interpret():
+        print('interprettting')
         translator = MorseCodeTranslator()
         search = ImageSearch()
         open_image = OpenImage()
