@@ -2,39 +2,81 @@ import socket
 import sys
 
 s = socket.socket()
+s.settimeout(5)
 print('socket created')
 
 port = 54322
+clientMSG = ''
 
-s.bind(('', port))
-print('socket behind ' + str(port) + ' port')
+ip = str(input('ip -> '))
 
-s.listen(5)
-print('socket listening')
+isServer = False
 
-c, addr = s.accept()
-print('got connect from ' + str(addr))
+try:
+    s.connect((ip, port))
+    print('you are a client')
+
+except:
+    isServer = True
+        #c.close()
+
+        #break
+
+s.settimeout(None)
+
+if isServer == True:
+    s.close()
+    s = socket.socket()
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
+    s.bind(('', port))
+    print('socket behind ' + str(port) + ' port')
+
+    s.listen(5)
+    print('socket listening')
+
+    c, addr = s.accept()
+    print('got connect from ' + str(addr))
 
 
-while True:
-    message = input('💬 -> ')
+    while True:
+        message = input('💬 -> ')
 
-    c.send(message.encode())
+        c.send(message.encode())
 
-    clientMSG = c.recv(1024).decode()
+        if message == 'quit' or message == 'exit': # check if user wants to end the chat
+            print('you ended the chat')
+            c.close()
+            sys.exit()
 
-    if clientMSG == 'quit' or clientMSG == 'exit':
-        print('they ended the chat')
-        c.close()
-        sys.exit()
+        clientMSG = c.recv(1024).decode()
 
-    print(clientMSG)
+        if clientMSG == 'quit' or clientMSG == 'exit':
+            print('they ended the chat')
+            c.close()
+            sys.exit()
 
-    if message == 'quit' or message == 'exit': # check if user wants to end the chat
-        print('you ended the chat')
-        c.close()
-        sys.exit()
+        clientMSG = c.recv(1024).decode()
 
-    #c.close()
+        print(clientMSG)
 
-    #break
+elif isServer == False:
+    while True:
+    # receive data from the server and decoding to get the string.
+        serverMSG = s.recv(1024).decode()
+        
+        if serverMSG == 'quit' or serverMSG == 'exit':
+            print('They ended the chat.')
+            s.close()
+            sys.exit()
+
+        print (serverMSG)
+
+        message = input('type your message: ')
+
+        s.send(message.encode())
+
+        if message == 'quit' or message == 'exit':
+            print('You ended the chat.')
+            s.close()
+            sys.exit()

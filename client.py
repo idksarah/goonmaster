@@ -1,7 +1,6 @@
 # Import socket module 
 import socket 
-import sys    
-import keyboard        
+import sys          
 
 #keyboard.wait('esc')
 
@@ -20,7 +19,7 @@ while True:
     
     if serverMSG == 'quit' or serverMSG == 'exit':
         print('They ended the chat.')
-        s.close
+        s.close()
         sys.exit()
 
     print (serverMSG)
@@ -33,4 +32,3 @@ while True:
         print('You ended the chat.')
         s.close()
         sys.exit()
-     
