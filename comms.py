@@ -31,7 +31,7 @@ while True:
 
     print(clientMSG)
 
-    if keyboard.is_pressed('x'): # check if user wants to end the chat
+    if message == 'quit' or message == 'exit': # check if user wants to end the chat
         c.close()
         sys.exit()
 
