@@ -14,6 +14,10 @@ while True:
     # receive data from the server and decoding to get the string.
     print (s.recv(1024).decode())
     
+    message = input('type your message: ')
+
+    s.send(message.encode())    
+
     # close the connection 
     #s.close()     
      
