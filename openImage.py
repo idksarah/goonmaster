@@ -1,9 +1,9 @@
 from PIL import Image
 import requests
 from io import BytesIO
-import psutil
-import keyboard
 import cv2
+import numpy as np
+import keyboard
 
 class OpenImage:
     @staticmethod
@@ -15,8 +15,19 @@ class OpenImage:
 
         img = Image.open(image_data)
 
-        img.show()
+        img_np = np.array(img)
 
-        # cv2.imshow('img', img)
-        # cv2.waitKey()
-        # cv2.destroyAllWindows()
+        if img_np.ndim == 3:
+            img_np = cv2.cvtColor(img_np, cv2.COLOR_RGB2BGR)
+
+        cv2.imshow('Image', img_np)
+        # cv2.setWindowProperty("Image", cv2.WND_PROP_FULLSCREEN, 1)
+        cv2.setWindowProperty("Image", cv2.WND_PROP_TOPMOST, 1)
+
+        while True:
+            if keyboard.is_pressed('space'):
+                break
+            if cv2.waitKey(10) & 0xFF == 27:
+                break
+
+        cv2.destroyAllWindows()
