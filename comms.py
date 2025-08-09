@@ -20,6 +20,8 @@ while True:
 
     c.send(message.encode())
 
+    print(c.recv(1024).decode())
+
     #c.close()
 
     #break
