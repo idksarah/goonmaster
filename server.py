@@ -56,8 +56,6 @@ if isServer == True:
             c.close()
             sys.exit()
 
-        clientMSG = c.recv(1024).decode()
-
         print(clientMSG)
 
 elif isServer == False:
